@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0F2D20" />
+
+  <title>404 — Página no encontrada · Bonsai Consulting</title>
+  <meta name="robots" content="noindex" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2316C08C' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20v-7'/%3E%3Ccircle cx='7' cy='8' r='2.3'/%3E%3Ccircle cx='14' cy='6' r='2'/%3E%3Ccircle cx='17' cy='10.5' r='1.6'/%3E%3Cpath d='M8 20h8'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Google Tag Manager / GA placeholder.
+       Replace 'GTM-XXXXXX' with your container ID before launch.
+       The init defers GA until cookies are accepted. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    // Default consent: denied. The cookie banner will update it.
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500,
+    });
+
+    // If user already accepted, grant consent now
+    try {
+      const saved = JSON.parse(localStorage.getItem('bonsai-cookies') || '{}');
+      if (saved.analytics) {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    } catch (e) {}
+
+    // Listen for new acceptance
+    window.addEventListener('cookies-accepted', function () {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+    });
+  </script>
+  <!-- Uncomment in production:
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-XXXXXX"></script>
+  -->
+</head>
+<body class="page-404">
+  <main id="main" class="four-oh-four">
+    <div class="subtle-grid"></div>
+    <div class="four-content">
+      <div class="four-mark">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20v-7"/><circle cx="7" cy="8" r="2.3"/><circle cx="14" cy="6" r="2"/><circle cx="17" cy="10.5" r="1.6"/>
+          <path d="M9 9c1 1 2 2 3 3"/><path d="M14 8c-1 1.5-1.5 3-2 4"/><path d="M16 12c-1 0.8-2.5 1-4 1"/>
+          <path d="M8 20h8"/><path d="M9.5 20v-1.5h5V20"/>
+        </svg>
+      </div>
+      <div class="four-number">404</div>
+      <h1>Esta rama no creció.</h1>
+      <p>La página que buscás no existe o fue podada. Te sugerimos volver al tronco principal o explorar las cuatro ramas activas.</p>
+
+      <div class="four-actions">
+        <a class="btn btn-primary" href="index.html">
+          Volver al inicio
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="index.html#contacto" style="border-color: rgba(255,255,255,0.2); color: var(--stone);">
+          Agendar diagnóstico
+        </a>
+      </div>
+
+      <div class="four-divs">
+        <div class="four-eyebrow">O explorá una división</div>
+        <div class="four-div-grid">
+          <a href="divisions/development.html">Bonsai Development</a>
+          <a href="divisions/web.html">Bonsai Web</a>
+          <a href="divisions/mkt.html">Bonsai Mkt Agency</a>
+          <a href="divisions/business.html">Bonsai Business</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Reels are interactive embeds — let them be indexed but not duplicate landings
+Allow: /brand-reel.html
+Allow: /division-reel.html
+
+# Working files
+Disallow: /uploads/
+Disallow: /parts/
+Disallow: /parts-v1/
+Disallow: /content.md
+Disallow: /index v1.html
+
+Sitemap: https://bonsai.consulting/sitemap.xml

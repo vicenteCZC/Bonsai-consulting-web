@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0F2D20" />
+
+  <title>Bonsai Consulting — Sistemas inteligentes para empresas en crecimiento</title>
+  <meta name="description" content="Consultora boutique AI-native. Convertimos operaciones manuales en sistemas inteligentes con cuatro divisiones: Development, Web, Mkt Agency y Business. Sprints de 10–15 días con precio cerrado." />
+  <meta name="keywords" content="consultoría, automatización, software a medida, IA, dashboards, board pack, LATAM, Paraguay, Asunción, sprint, AI agents" />
+  <meta name="author" content="Bonsai Consulting" />
+  <link rel="canonical" href="https://bonsai.consulting/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_LA" />
+  <meta property="og:site_name" content="Bonsai Consulting" />
+  <meta property="og:title" content="Bonsai Consulting — Sistemas inteligentes para empresas en crecimiento" />
+  <meta property="og:description" content="Una casa, cuatro divisiones. Convertimos operaciones manuales en sistemas inteligentes. Sprints con scope y precio cerrados." />
+  <meta property="og:url" content="https://bonsai.consulting/" />
+  <meta property="og:image" content="https://bonsai.consulting/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bonsai Consulting — Sistemas inteligentes para empresas en crecimiento" />
+  <meta name="twitter:description" content="Consultora AI-native. Cuatro divisiones bajo una sola disciplina." />
+  <meta name="twitter:image" content="https://bonsai.consulting/og-image.png" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2316C08C' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20v-7'/%3E%3Ccircle cx='7' cy='8' r='2.3'/%3E%3Ccircle cx='14' cy='6' r='2'/%3E%3Ccircle cx='17' cy='10.5' r='1.6'/%3E%3Cpath d='M8 20h8'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // No-flash theme init — runs before <body> renders.
+    (function () {
+      try {
+        var saved = localStorage.getItem('bonsai-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- ============================================================
+       JSON-LD — Organization + WebSite + FAQPage + Service
+       ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://bonsai.consulting/#org",
+        "name": "Bonsai Consulting",
+        "url": "https://bonsai.consulting/",
+        "logo": "https://bonsai.consulting/og-image.png",
+        "description": "Consultora boutique AI-native con cuatro divisiones: Development, Web, Mkt Agency y Business.",
+        "email": "hola@bonsai.consulting",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Asunción",
+          "addressCountry": "PY"
+        },
+        "areaServed": "LATAM",
+        "sameAs": []
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://bonsai.consulting/#website",
+        "url": "https://bonsai.consulting/",
+        "name": "Bonsai Consulting",
+        "inLanguage": "es",
+        "publisher": { "@id": "https://bonsai.consulting/#org" }
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Bonsai Development",
+        "description": "Software, automatización y agentes IA para empresas en crecimiento.",
+        "url": "https://bonsai.consulting/divisions/development.html",
+        "provider": { "@id": "https://bonsai.consulting/#org" }
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Bonsai Web",
+        "description": "Sitios web, landings y experiencias digitales con disciplina de producto.",
+        "url": "https://bonsai.consulting/divisions/web.html",
+        "provider": { "@id": "https://bonsai.consulting/#org" }
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Bonsai Mkt Agency",
+        "description": "Marketing digital, contenido y performance operados como un sistema.",
+        "url": "https://bonsai.consulting/divisions/mkt.html",
+        "provider": { "@id": "https://bonsai.consulting/#org" }
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Bonsai Business",
+        "description": "Consultoría estratégica, financiera y operativa para empresas en crecimiento.",
+        "url": "https://bonsai.consulting/divisions/business.html",
+        "provider": { "@id": "https://bonsai.consulting/#org" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "¿Cuánto cuesta un Sprint?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Un Bonsai Automation Sprint va de USD 6.000 a 12.000, precio cerrado, 10–15 días. Incluye diagnóstico, diseño, implementación, dashboard de seguimiento y 30 días de soporte post-deploy." } },
+          { "@type": "Question", "name": "¿En qué se diferencian de una agencia tradicional?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No vendemos horas: vendemos resultados con scope, plazo y precio cerrados. Cada sprint termina con un sistema en producción y métricas reales." } },
+          { "@type": "Question", "name": "¿Con qué tecnologías trabajan?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Next.js, Postgres, Supabase, n8n, OpenAI / Anthropic, Webflow, Framer, Shopify headless." } },
+          { "@type": "Question", "name": "¿Necesito tener todo ordenado antes de empezar?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Ese es exactamente el problema que resolvemos. El diagnóstico inicial mapea el caos actual y diseñamos sobre eso." } },
+          { "@type": "Question", "name": "¿Trabajan remoto o presencial?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Trabajamos remoto con reuniones de video. Kick-off presencial en Asunción u onsite con cliente si el caso lo justifica." } },
+          { "@type": "Question", "name": "¿Qué pasa después del sprint?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Cada sprint incluye 30 días de soporte. Después podés operar por tu cuenta, contratar mantenimiento bajo SLA o engancharte a Bonsai OS Partnership." } },
+          { "@type": "Question", "name": "¿Mis datos están seguros si usamos IA?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí. Los agentes IA corren en infraestructura privada con guardrails. No enviamos datos sensibles a modelos públicos sin autorización." } },
+          { "@type": "Question", "name": "¿Cómo empezamos?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Agendá un diagnóstico de 60 minutos. Salís con un mapa del proceso, una estimación de ahorro y una propuesta concreta — sin compromiso." } }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- React + Babel pinned with integrity -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <!-- Google Tag Manager / GA placeholder.
+       Replace 'GTM-XXXXXX' with your container ID before launch.
+       The init defers GA until cookies are accepted. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    // Default consent: denied. The cookie banner will update it.
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500,
+    });
+
+    // If user already accepted, grant consent now
+    try {
+      const saved = JSON.parse(localStorage.getItem('bonsai-cookies') || '{}');
+      if (saved.analytics) {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    } catch (e) {}
+
+    // Listen for new acceptance
+    window.addEventListener('cookies-accepted', function () {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+    });
+  </script>
+  <!-- Uncomment in production:
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-XXXXXX"></script>
+  -->
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <div id="root"></div>
+
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script src="parts/i18n.js"></script>
+  <script type="text/babel" src="parts/nav-hero.jsx"></script>
+  <script type="text/babel" src="parts/sections.jsx"></script>
+  <script type="text/babel" src="parts/extra-sections.jsx"></script>
+  <script type="text/babel" src="parts/app.jsx"></script>
+  <script type="text/babel" src="parts/admin.jsx"></script>
+  <script src="motion.js" defer></script>
+</body>
+</html>

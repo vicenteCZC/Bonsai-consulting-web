@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0F2D20" />
+  <title>Pricing por hora — Calculadora · Bonsai Consulting</title>
+  <meta name="description" content="Calculá cuánto tenés que cobrar la hora para llegar a tu ingreso anual objetivo. Contempla vacaciones, no-billable hours e impuestos." />
+  <link rel="canonical" href="https://bonsai.consulting/herramientas/pricing-hora.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Pricing por hora — Bonsai Consulting" />
+  <meta property="og:description" content="Cuánto cobrar la hora para llegar a tu ingreso objetivo." />
+  <meta property="og:image" content="https://bonsai.consulting/og-image.png" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2316C08C' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20v-7'/%3E%3Ccircle cx='7' cy='8' r='2.3'/%3E%3Ccircle cx='14' cy='6' r='2'/%3E%3Ccircle cx='17' cy='10.5' r='1.6'/%3E%3Cpath d='M8 20h8'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    // No-flash theme init — runs before <body> renders.
+    (function () {
+      try {
+        var saved = localStorage.getItem('bonsai-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <nav class="nav" aria-label="Principal">
+    <div class="wrap nav-inner">
+      <a class="brand" href="../index.html">
+        <span class="mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20v-7"/><circle cx="7" cy="8" r="2.3"/><circle cx="14" cy="6" r="2"/><circle cx="17" cy="10.5" r="1.6"/>
+            <path d="M9 9c1 1 2 2 3 3"/><path d="M14 8c-1 1.5-1.5 3-2 4"/><path d="M16 12c-1 0.8-2.5 1-4 1"/>
+            <path d="M8 20h8"/><path d="M9.5 20v-1.5h5V20"/>
+          </svg>
+        </span>
+        Bonsai Consulting
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#divisiones">Divisiones</a>
+        <a href="../cases/index.html">Casos</a>
+        <a href="index.html">Herramientas</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+      <a class="nav-cta" href="../agendar.html"><span class="dot"></span>Agendar diagnóstico</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="case-hero" style="padding-top: 72px;">
+      <div class="subtle-grid"></div>
+      <div class="wrap">
+        <a href="index.html" class="back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>
+          Herramientas
+        </a>
+        <span class="eyebrow">Calculadora · Gratuita</span>
+        <h1 class="h-display case-title" style="font-size: clamp(40px, 5vw, 64px);">Pricing por hora.</h1>
+        <p class="case-subtitle" style="max-width: 640px;">
+          La mayoría de freelancers y consultoras cobran por hora un número arbitrario y descubren tarde que <b>no llegan a su ingreso objetivo</b>. Esta calculadora hace el ejercicio inverso: empieza por tu ingreso objetivo y te dice qué hora tenés que facturar.
+        </p>
+      </div>
+    </section>
+
+    <section class="s" style="padding-top: 32px; padding-bottom: 64px;">
+      <div class="wrap" style="max-width: 1100px;">
+        <div class="dscr-grid">
+          <div class="calc-inputs">
+            <div class="calc-slider">
+              <div class="calc-slider-head">
+                <label for="target">Ingreso anual objetivo (USD, neto)</label>
+                <output id="target-val">USD 60.000</output>
+              </div>
+              <input id="target" type="range" min="12000" max="500000" step="2000" value="60000" />
+              <div class="calc-slider-hint">Lo que querés que te quede en el bolsillo después de impuestos.</div>
+            </div>
+
+            <div class="calc-slider">
+              <div class="calc-slider-head">
+                <label for="weeks">Semanas de trabajo al año</label>
+                <output id="weeks-val">46</output>
+              </div>
+              <input id="weeks" type="range" min="30" max="52" step="1" value="46" />
+              <div class="calc-slider-hint">52 menos vacaciones, feriados, días por enfermedad. Recomendado: 44–48.</div>
+            </div>
+
+            <div class="calc-slider">
+              <div class="calc-slider-head">
+                <label for="hpw">Horas trabajadas / semana</label>
+                <output id="hpw-val">40 h</output>
+              </div>
+              <input id="hpw" type="range" min="20" max="60" step="2" value="40" />
+              <div class="calc-slider-hint">Horas totales que dedicás a la actividad, incluyendo no-billable.</div>
+            </div>
+
+            <div class="calc-slider">
+              <div class="calc-slider-head">
+                <label for="billable">% horas billables</label>
+                <output id="billable-val">60%</output>
+              </div>
+              <input id="billable" type="range" min="20" max="90" step="5" value="60" />
+              <div class="calc-slider-hint">Las otras horas son admin, ventas, marketing, propuestas. Típico 50–70%.</div>
+            </div>
+
+            <div class="calc-slider">
+              <div class="calc-slider-head">
+                <label for="tax">Carga impositiva total (%)</label>
+                <output id="tax-val">30%</output>
+              </div>
+              <input id="tax" type="range" min="0" max="50" step="1" value="30" />
+              <div class="calc-slider-hint">IVA + IRPF/IRACIS + aportes. Paraguay ~30%, Argentina ~35%, Uruguay ~25%.</div>
+            </div>
+          </div>
+
+          <aside class="calc-output dscr-output">
+            <div class="calc-out-row">
+              <div class="calc-k">Hora a facturar</div>
+              <div class="calc-v big" id="rate-out">USD 0/h</div>
+              <div class="calc-bar"><span id="rate-bar" style="width: 0%;"></span></div>
+            </div>
+            <div class="calc-out-row">
+              <div class="calc-k">Horas billables / año</div>
+              <div class="calc-v" id="billable-hours">0 h</div>
+            </div>
+            <div class="calc-out-row">
+              <div class="calc-k">Facturación bruta necesaria</div>
+              <div class="calc-v" id="gross-needed">USD 0</div>
+            </div>
+
+            <div class="dscr-reading" id="pricing-reading">
+              <span class="eyebrow" id="pricing-label">Calculando...</span>
+              <div class="reco-name" id="pricing-headline">Ajustá las variables.</div>
+              <p class="reco-payback" id="pricing-text" style="margin-top:8px;">
+                Probá distintos escenarios para encontrar tu pricing.
+              </p>
+              <a class="btn btn-primary" href="../agendar.html" style="margin-top: 14px;">
+                Validar pricing con Bonsai
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+
+            <div style="margin-top: 18px; padding: 14px 18px; background: rgba(244,242,237,0.04); border-radius: 10px; border: 1px solid rgba(255,255,255,0.08);">
+              <div style="font-family: var(--font-mono); font-size: 10.5px; color: rgba(255,255,255,0.55); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px;">Referencia LATAM 2026</div>
+              <div style="font-size: 12.5px; color: rgba(255,255,255,0.75); line-height: 1.55;">
+                <b style="color: var(--stone);">Junior</b>: USD 15–30/h ·
+                <b style="color: var(--stone);">Mid</b>: USD 30–60/h ·
+                <b style="color: var(--stone);">Senior</b>: USD 60–120/h ·
+                <b style="color: var(--stone);">Specialty</b>: USD 120+/h
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="dscr-formula">
+          <h3>La fórmula</h3>
+          <code>Facturación bruta = Ingreso objetivo ÷ (1 − tax)<br/>Hora a facturar = Facturación bruta ÷ horas billables anuales</code>
+          <p>
+            <b>Horas billables anuales:</b> Semanas × horas por semana × % billable.
+            La mayoría subestima el efecto del % billable — pensar que se va a trabajar 100% billable es el error más común.
+          </p>
+          <p style="margin-top: 12px;">
+            <b>Nota importante:</b> esta calculadora te dice tu <b>piso</b> de pricing. Tu hora <b>de venta</b> debería ser un 20–40% por encima para construir reserva y absorber meses bajos.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-bottom" style="border-top: 0; padding-top: 0;">
+        <div>© 2026 BONSAI CONSULTING</div>
+        <div style="display:flex; gap:18px;">
+          <a href="../legal.html#privacidad">Privacidad</a>
+          <a href="../legal.html#terminos">Términos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const sliders = ['target','weeks','hpw','billable','tax'];
+    const inputs = {};
+    sliders.forEach(id => inputs[id] = document.getElementById(id));
+
+    const fmtUSD = (n) => 'USD ' + Math.round(n).toLocaleString('es-AR');
+    const updatePct = (el) => {
+      const min = +el.min, max = +el.max, v = +el.value;
+      el.style.setProperty('--pct', ((v-min)/(max-min)*100) + '%');
+    };
+
+    function recalc() {
+      const target = +inputs.target.value;
+      const weeks = +inputs.weeks.value;
+      const hpw = +inputs.hpw.value;
+      const billable = +inputs.billable.value / 100;
+      const tax = +inputs.tax.value / 100;
+
+      const billableHours = weeks * hpw * billable;
+      const grossNeeded = target / (1 - tax);
+      const hourly = billableHours > 0 ? grossNeeded / billableHours : 0;
+
+      document.getElementById('target-val').textContent = fmtUSD(target);
+      document.getElementById('weeks-val').textContent = weeks;
+      document.getElementById('hpw-val').textContent = hpw + ' h';
+      document.getElementById('billable-val').textContent = Math.round(billable * 100) + '%';
+      document.getElementById('tax-val').textContent = Math.round(tax * 100) + '%';
+
+      document.getElementById('rate-out').textContent = 'USD ' + hourly.toFixed(0) + '/h';
+      document.getElementById('billable-hours').textContent = billableHours.toFixed(0) + ' h';
+      document.getElementById('gross-needed').textContent = fmtUSD(grossNeeded);
+
+      const barPct = Math.min(100, (hourly / 200) * 100);
+      document.getElementById('rate-bar').style.width = barPct + '%';
+
+      // Reading by hourly rate band
+      const r2 = document.getElementById('pricing-reading');
+      const label = document.getElementById('pricing-label');
+      const head = document.getElementById('pricing-headline');
+      const text = document.getElementById('pricing-text');
+      r2.classList.remove('healthy','caution','risk','critical');
+
+      if (hourly < 20) {
+        r2.classList.add('risk');
+        label.textContent = 'Junior';
+        head.textContent = 'Te falta posicionamiento.';
+        text.textContent = 'A esta hora competís con freelancers junior globales. Subí % billable, reducí no-billable o repensá el ingreso objetivo.';
+      } else if (hourly < 50) {
+        r2.classList.add('caution');
+        label.textContent = 'Mid';
+        head.textContent = 'Rango estándar de servicios.';
+        text.textContent = 'Pricing razonable para profesional mid-level. Para crecer, considerá especializarte en un nicho o subir el % billable.';
+      } else if (hourly < 100) {
+        r2.classList.add('healthy');
+        label.textContent = 'Senior';
+        head.textContent = 'Pricing sostenible.';
+        text.textContent = 'Estás en el rango senior de LATAM. Sustentable, pero asegurate de validar que tu cliente percibe ese valor.';
+      } else if (hourly < 200) {
+        r2.classList.add('healthy');
+        label.textContent = 'Specialty';
+        head.textContent = 'Posicionamiento premium.';
+        text.textContent = 'A este precio vendés expertise específica o resultados, no horas. El cliente compra outcome, no tiempo.';
+      } else {
+        r2.classList.add('caution');
+        label.textContent = 'Top tier';
+        head.textContent = 'Mercado muy reducido.';
+        text.textContent = 'Posible en consultoría estratégica de alto nivel — pero a esta hora deberías vender proyectos o paquetes, no hora.';
+      }
+
+      sliders.forEach(id => updatePct(inputs[id]));
+    }
+
+    sliders.forEach(id => inputs[id].addEventListener('input', recalc));
+    recalc();
+  </script>
+  <script src="../motion.js" defer></script>
+</body>
+</html>

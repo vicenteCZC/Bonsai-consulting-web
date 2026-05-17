@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0F2D20" />
+  <title>Calculadora DSCR — Bonsai Consulting</title>
+  <meta name="description" content="Calculadora gratuita de DSCR (Debt Service Coverage Ratio). Estimá la capacidad de tu empresa para cubrir el servicio de deuda en menos de un minuto." />
+  <link rel="canonical" href="https://bonsai.consulting/herramientas/dscr.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Calculadora DSCR — Bonsai Consulting" />
+  <meta property="og:description" content="Calculá tu DSCR en menos de un minuto. Herramienta gratuita." />
+  <meta property="og:image" content="https://bonsai.consulting/og-image.png" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2316C08C' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20v-7'/%3E%3Ccircle cx='7' cy='8' r='2.3'/%3E%3Ccircle cx='14' cy='6' r='2'/%3E%3Ccircle cx='17' cy='10.5' r='1.6'/%3E%3Cpath d='M8 20h8'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    // No-flash theme init — runs before <body> renders.
+    (function () {
+      try {
+        var saved = localStorage.getItem('bonsai-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <nav class="nav" aria-label="Principal">
+    <div class="wrap nav-inner">
+      <a class="brand" href="../index.html">
+        <span class="mark" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20v-7"/><circle cx="7" cy="8" r="2.3"/><circle cx="14" cy="6" r="2"/><circle cx="17" cy="10.5" r="1.6"/>
+            <path d="M9 9c1 1 2 2 3 3"/><path d="M14 8c-1 1.5-1.5 3-2 4"/><path d="M16 12c-1 0.8-2.5 1-4 1"/>
+            <path d="M8 20h8"/><path d="M9.5 20v-1.5h5V20"/>
+          </svg>
+        </span>
+        Bonsai Consulting
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#divisiones">Divisiones</a>
+        <a href="../cases/index.html">Casos</a>
+        <a href="../sobre.html">Sobre</a>
+        <a href="../blog/index.html">Blog</a>
+      </div>
+      <a class="nav-cta" href="../agendar.html"><span class="dot"></span>Agendar diagnóstico</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="case-hero" style="padding-top: 72px;">
+      <div class="subtle-grid"></div>
+      <div class="wrap">
+        <a href="../index.html" class="back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>
+          Herramientas gratuitas
+        </a>
+        <span class="eyebrow">Calculadora · Gratuita</span>
+        <h1 class="h-display case-title" style="font-size: clamp(40px, 5vw, 64px);">DSCR · Capacidad de pago.</h1>
+        <p class="case-subtitle" style="max-width: 640px;">
+          El <b>Debt Service Coverage Ratio</b> mide si tu empresa puede cubrir el servicio de su deuda con el cashflow operativo. Es el primer indicador que mira un banco antes de prestarte — y el primero que deberías mirar antes de tomar deuda.
+        </p>
+      </div>
+    </section>
+
+    <section class="s" style="padding-top: 32px; padding-bottom: 64px;">
+      <div class="wrap" style="max-width: 1100px;">
+        <div class="dscr-grid">
+          <!-- INPUTS -->
+          <div class="calc-inputs">
+            <div class="calc-slider">
+              <div class="calc-slider-head">
+                <label for="ebitda">EBITDA anual (USD)</label>
+                <output id="ebitda-val">USD 500.000</output>
+              </div>
+              <input id="ebitda" type="range" min="50000" max="5000000" step="10000" value="500000" />
+              <div class="calc-slider-hint">Ganancia operativa antes de intereses, impuestos, depreciación y amortización.</div>
+            </div>
+
+            <div class="calc-slider">
+              <div class="calc-slider-head">
+                <label for="debt">Servicio de deuda anual (USD)</label>
+                <output id="debt-val">USD 200.000</output>
+              </div>
+              <input id="debt" type="range" min="10000" max="3000000" step="5000" value="200000" />
+              <div class="calc-slider-hint">Capital + intereses que pagás al año por todas tus deudas vigentes.</div>
+            </div>
+
+            <div class="calc-slider">
+              <div class="calc-slider-head">
+                <label for="capex">CapEx mantenimiento anual (USD)</label>
+                <output id="capex-val">USD 50.000</output>
+              </div>
+              <input id="capex" type="range" min="0" max="1000000" step="5000" value="50000" />
+              <div class="calc-slider-hint">Inversión necesaria para mantener la operación actual. Para una versión más conservadora del DSCR.</div>
+            </div>
+
+            <div class="calc-slider">
+              <div class="calc-slider-head">
+                <label for="impuestos">Impuestos efectivos (%)</label>
+                <output id="impuestos-val">30%</output>
+              </div>
+              <input id="impuestos" type="range" min="0" max="50" step="1" value="30" />
+              <div class="calc-slider-hint">Tasa efectiva sobre la utilidad. Algunos cálculos de DSCR la incluyen.</div>
+            </div>
+          </div>
+
+          <!-- OUTPUT -->
+          <aside class="calc-output dscr-output">
+            <div class="calc-out-row">
+              <div class="calc-k">Tu DSCR estándar</div>
+              <div class="calc-v big" id="dscr-value">2.50×</div>
+              <div class="calc-bar"><span id="dscr-bar" style="width: 80%;"></span></div>
+            </div>
+            <div class="calc-out-row">
+              <div class="calc-k">DSCR ajustado (con CapEx + impuestos)</div>
+              <div class="calc-v" id="dscr-adj">1.50×</div>
+            </div>
+
+            <div class="dscr-reading" id="dscr-reading">
+              <span class="eyebrow" id="dscr-label">Saludable</span>
+              <div class="reco-name" id="dscr-headline">Capacidad sólida.</div>
+              <p class="reco-payback" id="dscr-text" style="margin-top:8px;">
+                Tu empresa puede absorber su deuda actual sin estrés operativo.
+              </p>
+              <a class="btn btn-primary" href="../agendar.html" style="margin-top: 14px;">
+                Diagnóstico patrimonial completo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+
+            <div style="margin-top: 18px; padding: 14px 18px; background: rgba(244,242,237,0.04); border-radius: 10px; border: 1px solid rgba(255,255,255,0.08);">
+              <div style="font-family: var(--font-mono); font-size: 10.5px; color: rgba(255,255,255,0.55); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px;">Referencia</div>
+              <div style="font-size: 12.5px; color: rgba(255,255,255,0.75); line-height: 1.55;">
+                <b style="color: var(--stone);">DSCR &gt; 2.0</b> = saludable. <b style="color: var(--stone);">1.5–2.0</b> = aceptable.
+                <b style="color: var(--stone);">1.2–1.5</b> = riesgo. <b style="color: var(--stone);">&lt; 1.2</b> = crítico.
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="dscr-formula">
+          <h3>La fórmula</h3>
+          <code>DSCR = EBITDA / Servicio de Deuda anual</code>
+          <p>
+            <b>Versión conservadora:</b> ajustá el EBITDA restando CapEx de mantenimiento e impuestos.
+            Es lo que miran los bancos más exigentes y los inversores institucionales.
+          </p>
+          <p style="margin-top: 12px;">
+            Si tu DSCR estándar es <b>2.5×</b> pero el ajustado cae a <b>1.2×</b>, no estás
+            saludable — estás compensando con flujos que dependen de no hacer mantenimiento.
+            Es el escenario más común en empresas familiares.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="s dark" style="padding-top: 80px; padding-bottom: 80px;">
+      <div class="wrap" style="max-width: 760px; text-align: center;">
+        <span class="eyebrow" style="color: rgba(255,255,255,0.6); display: inline-flex;">¿Querés más?</span>
+        <h2 class="h-display" style="margin-top: 14px; font-size: clamp(28px, 4vw, 44px); color: var(--stone);">
+          Esta calculadora es la versión <em style="color: var(--green); font-style: normal;">pública</em> de lo que hacemos.
+        </h2>
+        <p style="color: rgba(255,255,255,0.7); margin-top: 18px; font-size: 17px; max-width: 580px; margin-inline: auto;">
+          En Bonsai Business construimos board packs en vivo con DSCR, stress scenarios y arquitectura patrimonial completa.
+          Esta calculadora es un vistazo — el sistema real va más profundo.
+        </p>
+        <div style="margin-top: 28px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="../divisions/business.html">
+            Ver Bonsai Business
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" style="color: var(--stone); border-color: rgba(255,255,255,0.18);" href="../cases/agroindustrial.html">
+            Ver caso real
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-bottom" style="border-top: 0; padding-top: 0;">
+        <div>© 2026 BONSAI CONSULTING</div>
+        <div style="display:flex; gap:18px;">
+          <a href="../legal.html#privacidad">Privacidad</a>
+          <a href="../legal.html#terminos">Términos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================================
+    // DSCR calculator — vanilla JS, no React needed
+    // ============================================================
+    const ebitda = document.getElementById('ebitda');
+    const debt = document.getElementById('debt');
+    const capex = document.getElementById('capex');
+    const impuestos = document.getElementById('impuestos');
+
+    const fmt = (n) => 'USD ' + Math.round(n).toLocaleString('es-AR');
+    const pct = (input) => {
+      const min = +input.min, max = +input.max, v = +input.value;
+      return ((v - min) / (max - min)) * 100;
+    };
+    const updatePct = (el) => el.style.setProperty('--pct', pct(el) + '%');
+
+    function recalc() {
+      const E = +ebitda.value;
+      const D = +debt.value;
+      const C = +capex.value;
+      const T = +impuestos.value / 100;
+
+      const dscr = D > 0 ? E / D : 99;
+      const dscrAdj = D > 0 ? ((E - C) * (1 - T)) / D : 99;
+
+      document.getElementById('ebitda-val').textContent = fmt(E);
+      document.getElementById('debt-val').textContent = fmt(D);
+      document.getElementById('capex-val').textContent = fmt(C);
+      document.getElementById('impuestos-val').textContent = (T * 100).toFixed(0) + '%';
+
+      document.getElementById('dscr-value').textContent = dscr.toFixed(2) + '×';
+      document.getElementById('dscr-adj').textContent = dscrAdj.toFixed(2) + '×';
+
+      // Bar — scale 0-3+ → 0-100%
+      const barPct = Math.min(100, (dscr / 3) * 100);
+      document.getElementById('dscr-bar').style.width = barPct + '%';
+
+      // Reading
+      const reading = document.getElementById('dscr-reading');
+      const label = document.getElementById('dscr-label');
+      const head = document.getElementById('dscr-headline');
+      const text = document.getElementById('dscr-text');
+      reading.classList.remove('healthy', 'caution', 'risk', 'critical');
+      if (dscr >= 2.0) {
+        reading.classList.add('healthy');
+        label.textContent = 'Saludable';
+        head.textContent = 'Capacidad sólida.';
+        text.textContent = 'Tu empresa puede absorber su deuda actual sin estrés operativo. Estás en posición de tomar más deuda estratégica o invertir excedente.';
+      } else if (dscr >= 1.5) {
+        reading.classList.add('caution');
+        label.textContent = 'Aceptable';
+        head.textContent = 'En la zona de control.';
+        text.textContent = 'Capacidad razonable, pero con poco margen ante un shock. Conviene construir reserva líquida antes de sumar deuda.';
+      } else if (dscr >= 1.2) {
+        reading.classList.add('risk');
+        label.textContent = 'En riesgo';
+        head.textContent = 'Atención necesaria.';
+        text.textContent = 'Capacidad ajustada. Cualquier baja en EBITDA o suba de tasas comprime la operación. Revisar estructura de deuda con urgencia.';
+      } else {
+        reading.classList.add('critical');
+        label.textContent = 'Crítico';
+        head.textContent = 'Riesgo estructural.';
+        text.textContent = 'El cashflow no cubre el servicio de deuda con holgura. Refinanciación, restructuración o aumento de margen son prioridad inmediata.';
+      }
+
+      updatePct(ebitda);
+      updatePct(debt);
+      updatePct(capex);
+      updatePct(impuestos);
+    }
+
+    [ebitda, debt, capex, impuestos].forEach((el) => el.addEventListener('input', recalc));
+    recalc();
+  </script>
+  <script src="../motion.js" defer></script>
+</body>
+</html>
