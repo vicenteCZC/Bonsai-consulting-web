@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0F2D20" />
+
+  <title>Blog — Bonsai Consulting</title>
+  <meta name="description" content="Diario de Bonsai. Notas cortas sobre sistemas, estrategia, automatización y crecimiento para empresas en LATAM." />
+  <link rel="canonical" href="https://bonsai.consulting/blog/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_LA" />
+  <meta property="og:site_name" content="Bonsai Consulting" />
+  <meta property="og:title" content="Blog — Bonsai Consulting" />
+  <meta property="og:description" content="Notas sobre sistemas, estrategia y crecimiento." />
+  <meta property="og:url" content="https://bonsai.consulting/blog/" />
+  <meta property="og:image" content="https://bonsai.consulting/og-image.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://bonsai.consulting/og-image.png" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2316C08C' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20v-7'/%3E%3Ccircle cx='7' cy='8' r='2.3'/%3E%3Ccircle cx='14' cy='6' r='2'/%3E%3Ccircle cx='17' cy='10.5' r='1.6'/%3E%3Cpath d='M8 20h8'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    // No-flash theme init — runs before <body> renders.
+    (function () {
+      try {
+        var saved = localStorage.getItem('bonsai-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <!-- Google Tag Manager / GA placeholder.
+       Replace 'GTM-XXXXXX' with your container ID before launch.
+       The init defers GA until cookies are accepted. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    // Default consent: denied. The cookie banner will update it.
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500,
+    });
+
+    // If user already accepted, grant consent now
+    try {
+      const saved = JSON.parse(localStorage.getItem('bonsai-cookies') || '{}');
+      if (saved.analytics) {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    } catch (e) {}
+
+    // Listen for new acceptance
+    window.addEventListener('cookies-accepted', function () {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+    });
+  </script>
+  <!-- Uncomment in production:
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-XXXXXX"></script>
+  -->
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <div id="root"></div>
+
+  <script src="../parts/blog-data.js"></script>
+  <script src="../parts/i18n.js"></script>
+  <script type="text/babel" src="../parts/nav-hero.jsx"></script>
+  <script type="text/babel" src="../parts/sections.jsx"></script>
+  <script type="text/babel" src="../parts/extra-sections.jsx"></script>
+  <script type="text/babel" src="../parts/blog-index.jsx"></script>
+  <script src="../motion.js" defer></script>
+</body>
+</html>

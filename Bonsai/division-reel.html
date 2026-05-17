@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bonsai · Division reel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --forest: #0F2D20;
+  --charcoal: #1A1F1E;
+  --sage: #A7B89A;
+  --sage-soft: #DDE6D4;
+  --stone: #F4F2ED;
+  --stone-2: #FBFAF7;
+  --green: #16C08C;
+  --green-2: #11a378;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width:100%; height:100%;
+  background: var(--forest);
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--stone);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.stage-wrap {
+  position: fixed; inset: 0;
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+.stage {
+  position: relative;
+  width: 1600px; height: 900px;
+  transform-origin: center;
+  overflow: hidden;
+  background: var(--forest);
+}
+.stage::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(244,242,237,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244,242,237,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(80% 70% at 50% 50%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(80% 70% at 50% 50%, black 30%, transparent 100%);
+}
+.stage::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(60% 50% at 50% 50%, rgba(22,192,140,0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.chrome {
+  position: absolute;
+  top: 36px; left: 48px; right: 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 50;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: rgba(244,242,237,0.5);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.chrome .brand {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--stone);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.chrome .brand .m {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: rgba(22,192,140,0.12);
+  display: grid; place-items: center;
+}
+.chrome .brand .divlabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-left: 4px;
+}
+.progress {
+  position: absolute;
+  left: 48px; right: 48px; bottom: 36px;
+  height: 2px;
+  background: rgba(244,242,237,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  z-index: 50;
+}
+.progress-bar {
+  height: 100%; width: 0%;
+  background: var(--green);
+  border-radius: 2px;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.scene.show { opacity: 1; }
+
+/* ---------------- Scene A: Before (chaos) ---------------- */
+.scene-A .scene-label {
+  position: absolute; top: 110px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244,242,237,0.5);
+  display: flex; align-items: center; gap: 12px;
+}
+.scene-A .scene-label::before {
+  content: ""; width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #E07A5F;
+  box-shadow: 0 0 0 4px rgba(224,122,95,0.2);
+}
+.scene-A h1 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 80px;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--stone);
+  text-align: center;
+  max-width: 1100px;
+}
+.scene-A h1 em {
+  font-style: normal;
+  color: rgba(244,242,237,0.4);
+  text-decoration: line-through;
+  text-decoration-color: rgba(224,122,95,0.6);
+  text-decoration-thickness: 2px;
+}
+.scene-A .chaos {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.scene-A .obj {
+  position: absolute;
+  background: rgba(244,242,237,0.04);
+  border: 1px solid rgba(244,242,237,0.08);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgba(244,242,237,0.7);
+  backdrop-filter: blur(4px);
+}
+.scene-A .obj .head {
+  font-size: 9.5px;
+  color: rgba(224,122,95,0.85);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.scene-A .obj .strike { color: rgba(224,122,95,0.7); }
+.scene-A .o1 { top: 26%; left: 8%;  width: 230px; animation: float-a 4.5s ease-in-out infinite; }
+.scene-A .o2 { top: 66%; left: 14%; width: 215px; animation: float-b 5s   ease-in-out infinite; }
+.scene-A .o3 { top: 28%; right: 8%; width: 235px; animation: float-c 4s   ease-in-out infinite; }
+.scene-A .o4 { top: 70%; right: 14%; width: 215px; animation: float-d 5.3s ease-in-out infinite; }
+@keyframes float-a { 0%,100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-5deg) translateY(-12px); } }
+@keyframes float-b { 0%,100% { transform: rotate(3deg) translateY(0);  } 50% { transform: rotate(4deg)  translateY(-10px); } }
+@keyframes float-c { 0%,100% { transform: rotate(5deg) translateY(0);  } 50% { transform: rotate(6deg)  translateY(-14px); } }
+@keyframes float-d { 0%,100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-4deg) translateY(-8px);  } }
+
+/* ---------------- Scene B: After (clean) ---------------- */
+.scene-B .scene-label {
+  position: absolute; top: 110px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  display: flex; align-items: center; gap: 12px;
+}
+.scene-B .scene-label::before {
+  content: ""; width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(22,192,140,0.3);
+}
+
+/* product mock (varies per division) */
+.product {
+  width: 1100px;
+  background: var(--stone);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 30px 70px -20px rgba(0,0,0,0.5);
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  animation: prodIn 0.9s 0.2s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes prodIn { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* --- Web product: a landing mock --- */
+.prod-web {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 18px;
+}
+.prod-web .left { padding: 28px 30px; }
+.prod-web .eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-2);
+}
+.prod-web h2 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 38px;
+  letter-spacing: -0.02em;
+  color: var(--forest);
+  line-height: 1.05;
+  margin-top: 12px;
+}
+.prod-web p {
+  color: rgba(26,31,30,0.62);
+  font-size: 14px;
+  margin-top: 14px;
+  max-width: 320px;
+}
+.prod-web .ctas { display: flex; gap: 8px; margin-top: 18px; }
+.prod-web .ctas .b {
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.prod-web .ctas .b1 { background: var(--forest); color: var(--stone); }
+.prod-web .ctas .b2 { color: var(--forest); border: 1px solid rgba(15,45,32,0.16); }
+.prod-web .img {
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--sage-soft) 0%, var(--sage) 100%);
+  display: grid; place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.prod-web .img::before {
+  content: "";
+  position: absolute; inset: 12%;
+  background: radial-gradient(circle, var(--forest) 0%, transparent 65%);
+  opacity: 0.18;
+}
+.prod-web .img-glyph {
+  width: 80px; height: 80px;
+  border-radius: 20px;
+  background: var(--stone-2);
+  display: grid; place-items: center;
+  box-shadow: 0 10px 24px -8px rgba(15,45,32,0.3);
+}
+
+/* --- Mkt product: dashboard of metrics --- */
+.prod-mkt {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 18px;
+}
+.prod-mkt .sidebar {
+  background: var(--forest);
+  color: var(--stone);
+  border-radius: 12px;
+  padding: 16px 14px;
+}
+.prod-mkt .sidebar .logo {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 14px;
+}
+.prod-mkt .sidebar .item {
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: rgba(244,242,237,0.7);
+  margin-bottom: 2px;
+}
+.prod-mkt .sidebar .item.on {
+  background: rgba(22,192,140,0.1);
+  color: var(--stone);
+}
+.prod-mkt .body { padding: 14px 18px; display: flex; flex-direction: column; gap: 12px; }
+.prod-mkt .row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+}
+.prod-mkt .kpi {
+  background: var(--stone-2);
+  border: 1px solid rgba(15,45,32,0.08);
+  border-radius: 10px;
+  padding: 12px;
+}
+.prod-mkt .kpi .k {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(26,31,30,0.6);
+}
+.prod-mkt .kpi .v {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--forest);
+  margin-top: 2px;
+}
+.prod-mkt .kpi .d { font-size: 10.5px; color: var(--green-2); }
+.prod-mkt .bars {
+  background: var(--stone-2);
+  border: 1px solid rgba(15,45,32,0.08);
+  border-radius: 10px;
+  padding: 14px 18px 8px;
+  min-height: 200px;
+}
+.prod-mkt .bars .t {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--forest);
+  margin-bottom: 12px;
+}
+.prod-mkt .bar-row {
+  display: grid; grid-template-columns: 70px 1fr 50px;
+  gap: 10px; align-items: center;
+  margin-bottom: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(26,31,30,0.6);
+}
+.prod-mkt .bar-row .l { text-align: left; }
+.prod-mkt .bar-row .r { text-align: right; color: var(--forest); font-weight: 600; }
+.prod-mkt .bar-row .b {
+  height: 6px;
+  background: rgba(167,184,154,0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.prod-mkt .bar-row .b span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  border-radius: 3px;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.product.in-view .bar-row .b span {
+  animation: barGrow 1.1s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes barGrow { to { transform: scaleX(var(--w, 0.6)); } }
+
+/* --- Business product: board pack --- */
+.prod-biz {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 18px;
+}
+.prod-biz .panel {
+  background: var(--stone-2);
+  border: 1px solid rgba(15,45,32,0.08);
+  border-radius: 12px;
+  padding: 18px 22px;
+}
+.prod-biz .panel .lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(26,31,30,0.55);
+  margin-bottom: 14px;
+}
+.prod-biz .panel h3 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--forest);
+  margin-bottom: 12px;
+}
+.prod-biz .stat {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(15,45,32,0.06);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: rgba(26,31,30,0.6);
+}
+.prod-biz .stat:last-child { border-bottom: 0; }
+.prod-biz .stat .v {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--forest);
+}
+.prod-biz .tree {
+  position: relative;
+  padding: 16px 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.prod-biz .tree .node {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: var(--forest);
+}
+.prod-biz .tree .node.top { background: var(--forest); color: var(--stone); font-weight: 600; }
+.prod-biz .tree .node.mid { background: rgba(167,184,154,0.3); margin-left: 18px; }
+.prod-biz .tree .node.leaf { background: var(--stone); margin-left: 36px; font-size: 11.5px; color: rgba(26,31,30,0.7); border: 1px solid rgba(15,45,32,0.08); }
+
+/* ---------------- Scene C: End frame ---------------- */
+.scene-C .end {
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 24px;
+}
+.scene-C .end-mark {
+  width: 84px; height: 84px;
+  border-radius: 22px;
+  background: rgba(22,192,140,0.1);
+  border: 1px solid rgba(22,192,140,0.3);
+  display: grid; place-items: center;
+  opacity: 0;
+  transform: scale(0.6);
+  animation: endMark 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes endMark { to { opacity: 1; transform: scale(1); } }
+.scene-C .end-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  opacity: 0;
+  animation: fadeUpEnd 0.7s 0.3s forwards;
+}
+@keyframes fadeUpEnd {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.scene-C h1 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 92px;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--stone);
+  max-width: 1200px;
+  opacity: 0;
+  animation: fadeUpEnd 0.9s 0.5s forwards;
+}
+.scene-C h1 em {
+  font-style: normal;
+  color: var(--green);
+  position: relative;
+}
+.scene-C h1 em::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0.05em;
+  height: 0.16em;
+  background: rgba(22,192,140,0.2);
+  z-index: -1;
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: underline 0.8s 1.3s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes underline { to { transform: scaleX(1); } }
+.scene-C .end-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stone);
+  background: rgba(22,192,140,0.1);
+  border: 1px solid rgba(22,192,140,0.3);
+  padding: 12px 22px;
+  border-radius: 999px;
+  opacity: 0;
+  animation: fadeUpEnd 0.7s 1.5s forwards;
+}
+</style>
+</head>
+<body>
+
+<div class="stage-wrap">
+  <div class="stage" id="stage">
+
+    <div class="chrome">
+      <div class="brand">
+        <span class="m">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20v-7"/><circle cx="7" cy="8" r="2.3"/><circle cx="14" cy="6" r="2"/><circle cx="17" cy="10.5" r="1.6"/>
+            <path d="M9 9c1 1 2 2 3 3"/><path d="M14 8c-1 1.5-1.5 3-2 4"/><path d="M16 12c-1 0.8-2.5 1-4 1"/>
+            <path d="M8 20h8"/><path d="M9.5 20v-1.5h5V20"/>
+          </svg>
+        </span>
+        Bonsai <span class="divlabel" id="divlabel">Division</span>
+      </div>
+      <div class="timecode" id="timecode">00:00 / 00:10</div>
+    </div>
+
+    <!-- Scene A: Before / chaos -->
+    <div class="scene scene-A" id="sA">
+      <div class="scene-label" id="labelA">Hoy</div>
+      <h1 id="titleA">Algo <em>roto</em>.</h1>
+      <div class="chaos" id="chaosA"></div>
+    </div>
+
+    <!-- Scene B: After / product (3 variants injected via JS) -->
+    <div class="scene scene-B" id="sB">
+      <div class="scene-label" id="labelB">Con Bonsai · en vivo</div>
+      <div class="product" id="prod"></div>
+    </div>
+
+    <!-- Scene C: End frame -->
+    <div class="scene scene-C" id="sC">
+      <div class="end">
+        <div class="end-mark">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20v-7"/><circle cx="7" cy="8" r="2.3"/><circle cx="14" cy="6" r="2"/><circle cx="17" cy="10.5" r="1.6"/>
+            <path d="M9 9c1 1 2 2 3 3"/><path d="M14 8c-1 1.5-1.5 3-2 4"/><path d="M16 12c-1 0.8-2.5 1-4 1"/>
+            <path d="M8 20h8"/><path d="M9.5 20v-1.5h5V20"/>
+          </svg>
+        </div>
+        <div class="end-eyebrow" id="endEyebrow">Bonsai · División</div>
+        <h1 id="endTitle">Crecimiento con <em>estructura</em>.</h1>
+        <div class="end-cta">Agendar diagnóstico →</div>
+      </div>
+    </div>
+
+    <div class="progress"><div class="progress-bar" id="bar"></div></div>
+  </div>
+</div>
+
+<script>
+// =============================================================
+// 1. Division data
+// =============================================================
+const DIVISIONS = {
+  web: {
+    label: "Web",
+    titleA: '<em>Sitio</em> que no convierte.',
+    chaos: [
+      ["Lighthouse", "Performance · 42/100", "Mobile lento"],
+      ["Bounce rate", "82%", "Sin atribución"],
+      ["Formulario", "no llega al CRM", "Leads perdidos"],
+      ["Diseño", "antiguo · 2018", "No representa"],
+    ],
+    product: "web",
+    endEyebrow: "Bonsai Web",
+    endTitle: 'Convierte <em>más</em>. Carga rápido.',
+  },
+  mkt: {
+    label: "Mkt Agency",
+    titleA: '<em>Inversión</em> sin retorno.',
+    chaos: [
+      ["Meta Ads", "$ sin tracking", "ROAS desconocido"],
+      ["Contenido", "esporádico", "Sin calendario"],
+      ["Pipeline", "vacío", "Sin atribución"],
+      ["Reportes", "PPT manual", "5 días / mes"],
+    ],
+    product: "mkt",
+    endEyebrow: "Bonsai Mkt Agency",
+    endTitle: 'Atención con <em>sistema</em>.',
+  },
+  business: {
+    label: "Business",
+    titleA: '<em>Estrategia</em> en la cabeza del fundador.',
+    chaos: [
+      ["KPIs", "nadie los mira", "Sin definir"],
+      ["Cuentas", "personales + empresa", "Mezcladas"],
+      ["Pricing", "por costumbre", "Sin modelo"],
+      ["Holding", "no existe", "Sin arquitectura"],
+    ],
+    product: "biz",
+    endEyebrow: "Bonsai Business",
+    endTitle: 'Estructura <em>antes</em> de escalar.',
+  },
+};
+
+// =============================================================
+// 2. Init from URL
+// =============================================================
+const params = new URLSearchParams(window.location.search);
+const divKey = params.get('d') || 'web';
+const D = DIVISIONS[divKey] || DIVISIONS.web;
+
+document.getElementById('divlabel').textContent = D.label;
+document.getElementById('titleA').innerHTML = D.titleA;
+document.getElementById('endEyebrow').textContent = D.endEyebrow;
+document.getElementById('endTitle').innerHTML = D.endTitle;
+
+// Inject chaos cards
+const chaos = document.getElementById('chaosA');
+const positions = [
+  { top: "26%", left: "8%",  rot: -4, dur: 4.5, anim: "float-a" },
+  { top: "66%", left: "14%", rot:  3, dur: 5.0, anim: "float-b" },
+  { top: "28%", right:"8%",  rot:  5, dur: 4.0, anim: "float-c" },
+  { top: "70%", right:"14%", rot: -3, dur: 5.3, anim: "float-d" },
+];
+D.chaos.forEach((c, i) => {
+  const p = positions[i];
+  const obj = document.createElement('div');
+  obj.className = 'obj o' + (i+1);
+  obj.innerHTML = `
+    <div class="head">${c[0]}</div>
+    <div class="body">${c[1]}</div>
+    <div class="strike">${c[2]}</div>
+  `;
+  chaos.appendChild(obj);
+});
+
+// Inject product variant
+const prod = document.getElementById('prod');
+if (D.product === "web") {
+  prod.classList.add('prod-web');
+  prod.innerHTML = `
+    <div class="left">
+      <div class="eyebrow">Empresa · 2026</div>
+      <h2>Bienvenido a una mejor versión de tu sitio.</h2>
+      <p>Carga rápido. Convierte. Se actualiza solo. Con atribución completa al CRM.</p>
+      <div class="ctas">
+        <div class="b b1">Cotizar</div>
+        <div class="b b2">Ver ejemplos</div>
+      </div>
+    </div>
+    <div class="img">
+      <div class="img-glyph">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <path d="M3 9h18"/>
+          <path d="M7 13h6"/>
+          <path d="M7 16h10"/>
+        </svg>
+      </div>
+    </div>
+  `;
+} else if (D.product === "mkt") {
+  prod.classList.add('prod-mkt');
+  prod.innerHTML = `
+    <div class="sidebar">
+      <div class="logo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-7"/><circle cx="7" cy="8" r="2.3"/><circle cx="14" cy="6" r="2"/></svg> Bonsai OS</div>
+      <div class="item on">Campañas</div>
+      <div class="item">Contenido</div>
+      <div class="item">Pipeline</div>
+      <div class="item">Atribución</div>
+    </div>
+    <div class="body">
+      <div class="row">
+        <div class="kpi"><div class="k">Leads / mes</div><div class="v">412</div><div class="d">+38%</div></div>
+        <div class="kpi"><div class="k">CPL</div><div class="v">USD 14</div><div class="d">−35%</div></div>
+        <div class="kpi"><div class="k">CTR</div><div class="v">3.4%</div><div class="d">+0.8pp</div></div>
+        <div class="kpi"><div class="k">ROAS</div><div class="v">5.2×</div><div class="d">Estable</div></div>
+      </div>
+      <div class="bars">
+        <div class="t">Canales · últimos 30 días</div>
+        <div class="bar-row"><span class="l">Meta Ads</span><div class="b"><span style="--w:0.78"></span></div><span class="r">USD 24K</span></div>
+        <div class="bar-row"><span class="l">Google</span><div class="b"><span style="--w:0.62"></span></div><span class="r">USD 18K</span></div>
+        <div class="bar-row"><span class="l">LinkedIn</span><div class="b"><span style="--w:0.46"></span></div><span class="r">USD 12K</span></div>
+        <div class="bar-row"><span class="l">Email</span><div class="b"><span style="--w:0.30"></span></div><span class="r">USD 8K</span></div>
+        <div class="bar-row"><span class="l">Orgánico</span><div class="b"><span style="--w:0.55"></span></div><span class="r">USD 15K</span></div>
+      </div>
+    </div>
+  `;
+} else {
+  prod.classList.add('prod-biz');
+  prod.innerHTML = `
+    <div class="panel">
+      <div class="lbl">Board pack · 2026</div>
+      <h3>Snapshot financiero</h3>
+      <div class="stat"><span>Facturación</span><span class="v">Gs. 5.9MM</span></div>
+      <div class="stat"><span>Margen operativo</span><span class="v">37.6%</span></div>
+      <div class="stat"><span>FCF anual</span><span class="v">Gs. 1.99MM</span></div>
+      <div class="stat"><span>DSCR</span><span class="v">&gt;2.5×</span></div>
+      <div class="stat"><span>ROIC estimado</span><span class="v">32–38%</span></div>
+    </div>
+    <div class="panel">
+      <div class="lbl">Arquitectura patrimonial</div>
+      <div class="tree">
+        <div class="node top">Cuenta operativa</div>
+        <div class="node mid">↓ Regla 30% mensual</div>
+        <div class="node top">Holding personal</div>
+        <div class="node leaf">→ Inmobiliario</div>
+        <div class="node leaf">→ Participaciones</div>
+        <div class="node leaf">→ Reserva líquida</div>
+      </div>
+    </div>
+  `;
+}
+
+// =============================================================
+// 3. Stage scaling
+// =============================================================
+const stage = document.getElementById('stage');
+function fit() {
+  const scale = Math.min(window.innerWidth / 1600, window.innerHeight / 900);
+  stage.style.transform = `scale(${scale})`;
+}
+fit(); window.addEventListener('resize', fit);
+
+// =============================================================
+// 4. Timeline (10s loop, 3 scenes)
+// =============================================================
+const TOTAL = 10;
+const scenes = [
+  { id: 'sA', from: 0,   to: 3.5  },
+  { id: 'sB', from: 3.5, to: 7.5  },
+  { id: 'sC', from: 7.5, to: 10.0 },
+];
+const els = {};
+scenes.forEach(s => els[s.id] = document.getElementById(s.id));
+const bar = document.getElementById('bar');
+const tc = document.getElementById('timecode');
+
+let t0 = performance.now();
+let prodTriggered = false;
+
+function fmtSec(t) {
+  const s = Math.floor(t);
+  return '00:' + (s < 10 ? '0' + s : s);
+}
+
+function loop() {
+  const elapsed = (performance.now() - t0) / 1000;
+  const t = elapsed % TOTAL;
+
+  scenes.forEach(s => {
+    if (t >= s.from && t < s.to) els[s.id].classList.add('show');
+    else els[s.id].classList.remove('show');
+  });
+
+  // Reset at loop boundary
+  if (t < 0.1 && elapsed > 1) {
+    scenes.forEach(s => {
+      const node = els[s.id];
+      node.style.animation = 'none';
+      void node.offsetHeight;
+      node.style.animation = '';
+    });
+    if (prod) {
+      prod.classList.remove('in-view');
+      prod.style.animation = 'none';
+      void prod.offsetHeight;
+      prod.style.animation = '';
+    }
+    prodTriggered = false;
+  }
+
+  if (t >= 3.5 && !prodTriggered) {
+    if (prod) prod.classList.add('in-view');
+    prodTriggered = true;
+  }
+
+  bar.style.width = (100 * t / TOTAL).toFixed(2) + '%';
+  tc.textContent = fmtSec(t) + ' / 00:10';
+
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

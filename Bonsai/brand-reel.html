@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bonsai — Brand reel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --forest: #0F2D20;
+  --forest-2: #173d2c;
+  --charcoal: #1A1F1E;
+  --sage: #A7B89A;
+  --sage-soft: #DDE6D4;
+  --stone: #F4F2ED;
+  --stone-2: #FBFAF7;
+  --green: #16C08C;
+  --green-2: #11a378;
+  --line: rgba(244,242,237, 0.08);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 100%; height: 100%;
+  background: var(--forest);
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--stone);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.stage-wrap {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.stage {
+  position: relative;
+  width: 1600px;
+  height: 900px;
+  transform-origin: center center;
+  overflow: hidden;
+  background: var(--forest);
+}
+/* subtle bg grid */
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(244,242,237,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244,242,237,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  background-position: center center;
+  mask-image: radial-gradient(80% 70% at 50% 50%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(80% 70% at 50% 50%, black 30%, transparent 100%);
+}
+.stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 50% at 50% 50%, rgba(22,192,140,0.08), transparent 70%);
+  pointer-events: none;
+}
+
+/* ---------------- All-time chrome (label + progress) ---------------- */
+.chrome {
+  position: absolute;
+  top: 36px; left: 48px; right: 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 50;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: rgba(244,242,237,0.5);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.chrome .brand {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--stone);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.chrome .brand .m {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: rgba(22,192,140,0.12);
+  display: grid; place-items: center;
+}
+.chrome .timecode {
+  font-feature-settings: "tnum";
+}
+
+.progress {
+  position: absolute;
+  left: 48px; right: 48px; bottom: 36px;
+  height: 2px;
+  background: rgba(244,242,237,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  z-index: 50;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--green);
+  border-radius: 2px;
+}
+
+/* ---------------- Scene base ---------------- */
+.scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ====================================================
+   SCENE 1 — "Hoy" chaos (0–3s)
+   ==================================================== */
+.scene-1 {
+  padding: 110px 80px;
+}
+.scene-1 .label {
+  position: absolute;
+  top: 110px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244,242,237,0.5);
+  display: flex; align-items: center; gap: 12px;
+}
+.scene-1 .label::before {
+  content: ""; width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #E07A5F;
+  box-shadow: 0 0 0 4px rgba(224,122,95,0.2);
+}
+.scene-1 h1 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 88px;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--stone);
+  text-align: center;
+  max-width: 1100px;
+  margin-bottom: 80px;
+}
+.scene-1 h1 em {
+  font-style: normal;
+  color: rgba(244,242,237,0.4);
+  text-decoration: line-through;
+  text-decoration-color: rgba(224,122,95,0.6);
+  text-decoration-thickness: 2px;
+}
+
+.chaos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.chaos .obj {
+  position: absolute;
+  background: rgba(244,242,237,0.04);
+  border: 1px solid rgba(244,242,237,0.08);
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: rgba(244,242,237,0.72);
+  backdrop-filter: blur(4px);
+}
+.chaos .obj .head {
+  font-size: 10px;
+  color: rgba(224,122,95,0.8);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.chaos .obj .body { color: rgba(244,242,237,0.6); }
+.chaos .obj .strike { color: rgba(224,122,95,0.7); font-weight: 500; }
+
+.chaos .o1 { top: 24%; left: 8%; width: 240px; transform: rotate(-4deg); }
+.chaos .o2 { top: 65%; left: 16%; width: 220px; transform: rotate(3deg); }
+.chaos .o3 { top: 30%; right: 7%; width: 250px; transform: rotate(5deg); }
+.chaos .o4 { top: 68%; right: 14%; width: 220px; transform: rotate(-3deg); }
+
+.chaos .obj.float-a { animation: float-a 4.5s ease-in-out infinite; }
+.chaos .obj.float-b { animation: float-b 5s ease-in-out infinite; }
+.chaos .obj.float-c { animation: float-c 4s ease-in-out infinite; }
+.chaos .obj.float-d { animation: float-d 5.5s ease-in-out infinite; }
+@keyframes float-a {
+  0%,100% { transform: rotate(-4deg) translateY(0); }
+  50%     { transform: rotate(-5deg) translateY(-12px); }
+}
+@keyframes float-b {
+  0%,100% { transform: rotate(3deg) translateY(0); }
+  50%     { transform: rotate(4deg) translateY(-10px); }
+}
+@keyframes float-c {
+  0%,100% { transform: rotate(5deg) translateY(0); }
+  50%     { transform: rotate(6deg) translateY(-14px); }
+}
+@keyframes float-d {
+  0%,100% { transform: rotate(-3deg) translateY(0); }
+  50%     { transform: rotate(-4deg) translateY(-8px); }
+}
+
+/* ====================================================
+   SCENE 2 — Pipeline appears (3–5s)
+   ==================================================== */
+.scene-2 .label {
+  position: absolute;
+  top: 110px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244,242,237,0.5);
+  display: flex; align-items: center; gap: 12px;
+}
+.scene-2 .label::before {
+  content: ""; width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(22,192,140,0.2);
+}
+.scene-2 .pipeline {
+  position: relative;
+  width: 900px; height: 600px;
+}
+.scene-2 .center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(22,192,140,0.3) 0%, rgba(22,192,140,0.05) 50%, transparent 100%);
+  display: grid; place-items: center;
+  opacity: 0;
+  animation: centerPulse 2s 0.3s forwards;
+}
+@keyframes centerPulse {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  60%  { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.scene-2 .center .glyph {
+  width: 80px; height: 80px;
+  border-radius: 20px;
+  background: var(--forest);
+  border: 1px solid rgba(22,192,140,0.4);
+  display: grid; place-items: center;
+}
+.scene-2 .lines {
+  position: absolute; inset: 0;
+}
+.scene-2 .lines svg {
+  width: 100%; height: 100%;
+}
+.scene-2 .lines path {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: drawNet 1.4s ease-out 0.6s forwards;
+}
+@keyframes drawNet {
+  to { stroke-dashoffset: 0; }
+}
+.scene-2 .nodes .n {
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 6px rgba(22,192,140,0.18);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: nodePop 0.5s 1.6s forwards;
+}
+@keyframes nodePop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  60%{ opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+  100%{ opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.scene-2 .nodes .n1 { left: 12%; top: 20%; animation-delay: 1.5s; }
+.scene-2 .nodes .n2 { left: 88%; top: 22%; animation-delay: 1.65s; }
+.scene-2 .nodes .n3 { left: 14%; top: 80%; animation-delay: 1.8s; }
+.scene-2 .nodes .n4 { left: 86%; top: 78%; animation-delay: 1.95s; }
+.scene-2 .caption {
+  position: absolute;
+  bottom: 130px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 38px;
+  letter-spacing: -0.018em;
+  color: var(--stone);
+  opacity: 0;
+  animation: fade-up 0.8s 1.2s forwards;
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translate(-50%, 14px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ====================================================
+   SCENE 3 — Dashboard appears (5–8s)
+   ==================================================== */
+.scene-3 .label {
+  position: absolute;
+  top: 110px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  display: flex; align-items: center; gap: 12px;
+}
+.scene-3 .label::before {
+  content: ""; width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(22,192,140,0.3);
+}
+.dashboard {
+  width: 1200px;
+  background: var(--stone);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 18px;
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  animation: dashEnter 0.9s 0.2s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes dashEnter {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.dashboard .side {
+  background: var(--forest);
+  border-radius: 12px;
+  padding: 16px 14px;
+  color: var(--stone);
+}
+.dashboard .side .logo {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 16px;
+}
+.dashboard .side .logo .mm {
+  width: 24px; height: 24px;
+  background: rgba(22,192,140,0.15);
+  border-radius: 6px;
+  display: grid; place-items: center;
+}
+.dashboard .side .item {
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  color: rgba(244,242,237,0.7);
+  margin-bottom: 2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.dashboard .side .item.on {
+  background: rgba(22,192,140,0.1);
+  color: var(--stone);
+}
+.dashboard .side .item.on::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--green);
+}
+
+.dashboard .main {
+  padding: 12px 16px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.dashboard .kpi-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+}
+.dashboard .kpi {
+  background: var(--stone-2);
+  border: 1px solid rgba(15,45,32,0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.dashboard .kpi .k {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(26,31,30,0.6);
+}
+.dashboard .kpi .v {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--forest);
+  margin-top: 2px;
+}
+.dashboard .kpi .d {
+  font-size: 11px;
+  color: var(--green-2);
+  margin-top: 2px;
+}
+
+.dashboard .chart {
+  background: var(--stone-2);
+  border: 1px solid rgba(15,45,32,0.08);
+  border-radius: 10px;
+  padding: 14px 18px 10px;
+  flex: 1;
+  min-height: 220px;
+  display: flex; flex-direction: column;
+}
+.dashboard .chart .ch {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.dashboard .chart .ch .t {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--forest);
+}
+.dashboard .chart .ch .s {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: rgba(26,31,30,0.5);
+}
+.dashboard .chart svg { width: 100%; height: 100%; }
+.dashboard .chart svg path.line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+}
+.dashboard.in-view svg path.line {
+  animation: drawDash 1.6s 0.9s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes drawDash { to { stroke-dashoffset: 0; } }
+.dashboard.in-view svg path.area {
+  opacity: 0;
+  animation: fadeFill 0.9s 2s forwards;
+}
+@keyframes fadeFill { to { opacity: 1; } }
+
+/* ====================================================
+   SCENE 4 — End frame (9–11s)
+   ==================================================== */
+.scene-4 .end-content {
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
+}
+.scene-4 .end-mark {
+  width: 96px; height: 96px;
+  border-radius: 24px;
+  background: rgba(22,192,140,0.1);
+  border: 1px solid rgba(22,192,140,0.3);
+  display: grid; place-items: center;
+  opacity: 0;
+  transform: scale(0.6);
+  animation: endMark 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes endMark {
+  to { opacity: 1; transform: scale(1); }
+}
+.scene-4 .end-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  opacity: 0;
+  animation: fadeUpEnd 0.7s 0.3s forwards;
+}
+@keyframes fadeUpEnd {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.scene-4 h1 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 112px;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--stone);
+  max-width: 1300px;
+  opacity: 0;
+  animation: fadeUpEnd 0.9s 0.5s forwards;
+}
+.scene-4 h1 em {
+  font-style: normal;
+  color: var(--green);
+  position: relative;
+}
+.scene-4 h1 em::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0.05em;
+  height: 0.16em;
+  background: rgba(22,192,140,0.2);
+  z-index: -1;
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: underline 0.8s 1.3s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes underline {
+  to { transform: scaleX(1); }
+}
+.scene-4 .end-foot {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244,242,237,0.5);
+  opacity: 0;
+  animation: fadeUpEnd 0.7s 1.5s forwards;
+}
+.scene-4 .end-foot b {
+  color: var(--stone);
+  font-weight: 500;
+}
+
+/* Hide elements outside their scene by default */
+.scene { transition: opacity 0.5s ease; }
+.scene.show { opacity: 1; }
+
+/* Mark visibility for child animations */
+.dashboard { will-change: transform, opacity; }
+
+/* Responsive scale handled in JS */
+</style>
+</head>
+<body>
+
+<div class="stage-wrap">
+  <div class="stage" id="stage">
+
+    <!-- Persistent chrome -->
+    <div class="chrome">
+      <div class="brand">
+        <span class="m">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20v-7" />
+            <circle cx="7" cy="8" r="2.3" />
+            <circle cx="14" cy="6" r="2" />
+            <circle cx="17" cy="10.5" r="1.6" />
+            <path d="M9 9c1 1 2 2 3 3" />
+            <path d="M14 8c-1 1.5-1.5 3-2 4" />
+            <path d="M16 12c-1 0.8-2.5 1-4 1" />
+            <path d="M8 20h8" />
+            <path d="M9.5 20v-1.5h5V20" />
+          </svg>
+        </span>
+        Bonsai Consulting
+      </div>
+      <div class="timecode" id="timecode">00:00 / 00:12</div>
+    </div>
+
+    <!-- =================== SCENE 1 =================== -->
+    <div class="scene scene-1" id="s1">
+      <div class="label">Hoy</div>
+      <h1>Operación <em>dispersa</em>.<br/>Decisiones tarde.</h1>
+      <div class="chaos">
+        <div class="obj o1 float-a">
+          <div class="head">Excel</div>
+          <div class="body">cierre_mensual</div>
+          <div class="strike">v3_FINAL_real.xlsx</div>
+        </div>
+        <div class="obj o2 float-b">
+          <div class="head">WhatsApp</div>
+          <div class="body">"aprobá el pago"</div>
+          <div class="strike">leído · sin respuesta</div>
+        </div>
+        <div class="obj o3 float-c">
+          <div class="head">Reporte manual</div>
+          <div class="body">copy & paste</div>
+          <div class="strike">~5 días / mes</div>
+        </div>
+        <div class="obj o4 float-d">
+          <div class="head">Datos</div>
+          <div class="body">6 sistemas</div>
+          <div class="strike">no se hablan</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================== SCENE 2 =================== -->
+    <div class="scene scene-2" id="s2">
+      <div class="label">Bonsai entra</div>
+      <div class="pipeline">
+        <div class="lines">
+          <svg viewBox="0 0 900 600" preserveAspectRatio="none">
+            <path d="M108,120 C260,180 400,260 450,300" />
+            <path d="M792,132 C640,180 500,260 450,300" />
+            <path d="M126,480 C270,420 400,340 450,300" />
+            <path d="M774,468 C620,420 500,340 450,300" />
+          </svg>
+        </div>
+        <div class="nodes">
+          <span class="n n1"></span>
+          <span class="n n2"></span>
+          <span class="n n3"></span>
+          <span class="n n4"></span>
+        </div>
+        <div class="center">
+          <div class="glyph">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20v-7" />
+              <circle cx="7" cy="8" r="2.3" />
+              <circle cx="14" cy="6" r="2" />
+              <circle cx="17" cy="10.5" r="1.6" />
+              <path d="M9 9c1 1 2 2 3 3" />
+              <path d="M14 8c-1 1.5-1.5 3-2 4" />
+              <path d="M16 12c-1 0.8-2.5 1-4 1" />
+              <path d="M8 20h8" />
+              <path d="M9.5 20v-1.5h5V20" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="caption">Una sola capa. Cuatro fuentes.</div>
+    </div>
+
+    <!-- =================== SCENE 3 =================== -->
+    <div class="scene scene-3" id="s3">
+      <div class="label">Con Bonsai · en producción</div>
+      <div class="dashboard" id="dash">
+        <div class="side">
+          <div class="logo">
+            <span class="mm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20v-7" />
+                <circle cx="7" cy="8" r="2.3" />
+                <circle cx="14" cy="6" r="2" />
+                <circle cx="17" cy="10.5" r="1.6" />
+                <path d="M8 20h8" />
+              </svg>
+            </span>
+            Bonsai OS
+          </div>
+          <div class="item on">Tablero ejecutivo</div>
+          <div class="item">Flujos</div>
+          <div class="item">Agentes IA</div>
+          <div class="item">Datos</div>
+          <div class="item">Board pack</div>
+        </div>
+        <div class="main">
+          <div class="kpi-row">
+            <div class="kpi">
+              <div class="k">Facturación</div>
+              <div class="v" data-target="5.9" data-suffix="MM">0.0MM</div>
+              <div class="d">+12.4% vs PY</div>
+            </div>
+            <div class="kpi">
+              <div class="k">Margen operativo</div>
+              <div class="v" data-target="37.6" data-suffix="%">0.0%</div>
+              <div class="d">+2.1pp</div>
+            </div>
+            <div class="kpi">
+              <div class="k">DSCR</div>
+              <div class="v" data-target="2.5" data-suffix="×">0.0×</div>
+              <div class="d">Estable</div>
+            </div>
+          </div>
+          <div class="chart">
+            <div class="ch">
+              <div class="t">Ingresos vs FCF</div>
+              <div class="s">12M · LIVE</div>
+            </div>
+            <svg viewBox="0 0 460 160" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="gA" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#16C08C" stop-opacity="0.22" />
+                  <stop offset="100%" stop-color="#16C08C" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              <path class="area" fill="url(#gA)" d="M8,118 L48,108 L88,100 L128,96 L168,90 L208,82 L248,76 L288,68 L328,62 L368,54 L408,48 L452,42 L452,152 L8,152 Z" />
+              <path class="line" stroke="#0F2D20" d="M8,118 L48,108 L88,100 L128,96 L168,90 L208,82 L248,76 L288,68 L328,62 L368,54 L408,48 L452,42" />
+              <path class="line" stroke="#16C08C" stroke-dasharray="4 4" d="M8,140 L48,134 L88,128 L128,122 L168,116 L208,108 L248,104 L288,98 L328,90 L368,84 L408,80 L452,74" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================== SCENE 4 — End =================== -->
+    <div class="scene scene-4" id="s4">
+      <div class="end-content">
+        <div class="end-mark">
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#16C08C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20v-7" />
+            <circle cx="7" cy="8" r="2.3" />
+            <circle cx="14" cy="6" r="2" />
+            <circle cx="17" cy="10.5" r="1.6" />
+            <path d="M9 9c1 1 2 2 3 3" />
+            <path d="M14 8c-1 1.5-1.5 3-2 4" />
+            <path d="M16 12c-1 0.8-2.5 1-4 1" />
+            <path d="M8 20h8" />
+            <path d="M9.5 20v-1.5h5V20" />
+          </svg>
+        </div>
+        <div class="end-eyebrow">Bonsai Consulting</div>
+        <h1>Sistemas que <em>operan solos</em>.</h1>
+        <div class="end-foot">Una casa · <b>Development</b> · <b>Web</b> · <b>Mkt Agency</b> · <b>Business</b></div>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress"><div class="progress-bar" id="bar"></div></div>
+  </div>
+</div>
+
+<script>
+// =============================================================
+// Stage scaling — fits 1600x900 into any viewport
+// =============================================================
+const stage = document.getElementById('stage');
+function fit() {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  const scale = Math.min(w / 1600, h / 900);
+  stage.style.transform = `scale(${scale})`;
+}
+fit();
+window.addEventListener('resize', fit);
+
+// =============================================================
+// Scene timeline (in seconds)
+// =============================================================
+const TOTAL = 12;
+const scenes = [
+  { id: 's1', from: 0,    to: 3.0  },
+  { id: 's2', from: 3.0,  to: 5.5  },
+  { id: 's3', from: 5.5,  to: 9.0  },
+  { id: 's4', from: 9.0,  to: 12.0 },
+];
+
+const els = {};
+scenes.forEach(s => { els[s.id] = document.getElementById(s.id); });
+const bar = document.getElementById('bar');
+const tc = document.getElementById('timecode');
+
+let t0 = performance.now();
+let kpisAnimated = false;
+let dashTriggered = false;
+
+function fmtSec(t) {
+  const s = Math.floor(t);
+  return '00:' + (s < 10 ? '0' + s : s);
+}
+
+function animateKPIs() {
+  const kpis = document.querySelectorAll('#dash .kpi .v');
+  const start = performance.now();
+  const duration = 1500;
+  function step(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    kpis.forEach(el => {
+      const target = parseFloat(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const v = target * eased;
+      el.textContent = v.toFixed(1) + suffix;
+    });
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function loop() {
+  const now = performance.now();
+  const elapsed = (now - t0) / 1000;
+  const t = elapsed % TOTAL;
+
+  scenes.forEach(s => {
+    if (t >= s.from && t < s.to) {
+      els[s.id].classList.add('show');
+    } else {
+      els[s.id].classList.remove('show');
+    }
+  });
+
+  // Restart scene-specific anims on loop boundary
+  if (t < 0.1 && elapsed > 1) {
+    // Reset scene 1 chaos rotation/etc by re-triggering keyframes (force reflow)
+    scenes.forEach(s => {
+      const node = els[s.id];
+      node.style.animation = 'none';
+      void node.offsetHeight;
+      node.style.animation = '';
+    });
+    // Reset dashboard
+    const dash = document.getElementById('dash');
+    if (dash) {
+      dash.classList.remove('in-view');
+      dash.style.animation = 'none';
+      void dash.offsetHeight;
+      dash.style.animation = '';
+      // Reset KPIs
+      document.querySelectorAll('#dash .kpi .v').forEach(el => {
+        const suffix = el.dataset.suffix || '';
+        el.textContent = '0.0' + suffix;
+      });
+    }
+    dashTriggered = false;
+    kpisAnimated = false;
+  }
+
+  // Trigger dashboard chart draw when scene 3 opens
+  if (t >= 5.5 && !dashTriggered) {
+    const dash = document.getElementById('dash');
+    if (dash) dash.classList.add('in-view');
+    dashTriggered = true;
+  }
+  // Trigger KPI count-up shortly after dashboard appears
+  if (t >= 6.0 && !kpisAnimated) {
+    animateKPIs();
+    kpisAnimated = true;
+  }
+
+  // Progress bar + timecode
+  bar.style.width = (100 * t / TOTAL).toFixed(2) + '%';
+  tc.textContent = fmtSec(t) + ' / 00:12';
+
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+
+</body>
+</html>
