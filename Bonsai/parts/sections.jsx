@@ -469,7 +469,7 @@ function CTABanner() {
           </div>
           <div style={{display:"flex", flexDirection:"column", gap:10, alignItems:"flex-start"}}>
             <a className="btn btn-primary" href="mailto:hola@bonsai.consulting?subject=Quiero%20un%20diagn%C3%B3stico">
-              Agendar diagnóstico <Icon.Arrow width="16" height="16" />
+              Agendar diagnóstico 60 min <Icon.Arrow width="16" height="16" />
             </a>
             <a className="btn btn-ghost" style={{color:"var(--stone)", borderColor:"rgba(255,255,255,0.18)"}} href="#servicios">
               Ver soluciones primero

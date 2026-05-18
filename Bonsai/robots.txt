@@ -12,4 +12,4 @@ Disallow: /parts-v1/
 Disallow: /content.md
 Disallow: /index v1.html
 
-Sitemap: https://bonsai.consulting/sitemap.xml
+Sitemap: https://bonsai-consulting-web.vercel.app/sitemap.xml

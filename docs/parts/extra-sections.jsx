@@ -339,7 +339,7 @@ function StickyCTA() {
       <span className="sticky-dot" aria-hidden="true" />
       <span className="sticky-text">¿Listo para empezar?</span>
       <a className="sticky-btn" href="#contacto">
-        Agendar diagnóstico
+        Diagnóstico 60 min
         <Icon.Arrow width="14" height="14" />
       </a>
       <button

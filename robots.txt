@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /docs/uploads/
+Disallow: /docs/parts/
+Disallow: /docs/parts-v1/
+Disallow: /docs/content.md
+Disallow: /docs/index%20v1.html
+
+Sitemap: https://bonsai-consulting-web.vercel.app/sitemap.xml

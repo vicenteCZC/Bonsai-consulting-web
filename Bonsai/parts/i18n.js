@@ -18,7 +18,7 @@
       "nav.faq":         "FAQ",
       "nav.about":       "Sobre nosotros",
       "nav.blog":        "Blog",
-      "nav.cta":         "Agendar diagnóstico",
+      "nav.cta":         "Diagnóstico 60 min",
 
       // Hero
       "hero.eyebrow":    "Consultora AI-native · Asunción / LATAM",
@@ -26,7 +26,7 @@
       "hero.title.em":   "sistemas inteligentes",
       "hero.title.b":    ".",
       "hero.lead":       "Diseñamos software, automatizaciones y agentes de IA para empresas que quieren operar con más claridad, velocidad y control.",
-      "hero.cta.primary":"Agendar diagnóstico",
+      "hero.cta.primary":"Agendar diagnóstico 60 min",
       "hero.cta.ghost":  "Ver soluciones",
       "hero.stat.1.k":   "Servicios especializados",
       "hero.stat.2.v":   "10–15 días",
@@ -35,7 +35,7 @@
 
       // Sticky / UX
       "sticky.text":     "¿Listo para empezar?",
-      "sticky.cta":      "Agendar diagnóstico",
+      "sticky.cta":      "Diagnóstico 60 min",
       "back.top":        "Volver al inicio",
       "skip.link":       "Saltar al contenido",
 
@@ -55,7 +55,7 @@
       "nav.faq":         "FAQ",
       "nav.about":       "About",
       "nav.blog":        "Blog",
-      "nav.cta":         "Book a diagnostic",
+      "nav.cta":         "60-min diagnostic",
 
       // Hero
       "hero.eyebrow":    "AI-native consultancy · Asunción / LATAM",
@@ -63,7 +63,7 @@
       "hero.title.em":   "intelligent systems",
       "hero.title.b":    ".",
       "hero.lead":       "We design software, automations and AI agents for companies that want to operate with more clarity, speed and control.",
-      "hero.cta.primary":"Book a diagnostic",
+      "hero.cta.primary":"Book a 60-min diagnostic",
       "hero.cta.ghost":  "See solutions",
       "hero.stat.1.k":   "Specialized services",
       "hero.stat.2.v":   "10–15 days",
@@ -72,7 +72,7 @@
 
       // Sticky / UX
       "sticky.text":     "Ready to start?",
-      "sticky.cta":      "Book a diagnostic",
+      "sticky.cta":      "60-min diagnostic",
       "back.top":        "Back to top",
       "skip.link":       "Skip to content",
 

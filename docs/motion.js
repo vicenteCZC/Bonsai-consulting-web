@@ -53,10 +53,10 @@
     document.querySelectorAll('.hero-stats .v, .case-stat .v, .use-stats .v, .kpi .value').forEach((el) => {
       const txt = el.textContent.trim();
       // Only count if it starts with a number (skip e.g. "Gs. 1.99MM" or ">2.5×" — those animate via fade)
-      const match = txt.match(/^(\d+(?:[.,]\d+)?)/);
+      const match = txt.match(/^(\d+(?:[.,]\d+)?)(\s*[A-Za-z%]*)?$/);
       if (match && !el.hasAttribute('data-count')) {
         el.setAttribute('data-count', match[1]);
-        el.setAttribute('data-count-suffix', txt.slice(match[0].length));
+        el.setAttribute('data-count-suffix', match[2] || '');
         el.dataset.counted = 'pending';
       }
     });
