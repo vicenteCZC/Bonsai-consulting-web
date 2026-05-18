@@ -592,40 +592,108 @@ function ProcessSection() {
 // CTA banner — final
 // ============================================================
 function CTABanner() {
+  const [company, setCompany] = React.useState("");
+  const [processName, setProcessName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const summary = [
+    "Hola Bonsai, quiero agendar un diagnostico de 60 minutos.",
+    "",
+    `Empresa: ${company || "A completar"}`,
+    `Proceso a revisar: ${processName || "A completar"}`,
+    `Email: ${email || "A completar"}`,
+  ].join("\n");
+  const mailto = `mailto:hola@bonsai.consulting?subject=${encodeURIComponent("Diagnostico Bonsai")}&body=${encodeURIComponent(summary)}`;
+  const whatsapp = `https://wa.me/595981234567?text=${encodeURIComponent(summary)}`;
+
   return (
     <section className="s" id="contacto" style={{paddingTop: 96, paddingBottom:64}}>
       <div className="wrap">
         <div className="cta-banner">
           <div>
-            <span className="eyebrow" style={{color:"rgba(255,255,255,0.6)"}}>Empezá hoy</span>
+            <span className="eyebrow" style={{color:"rgba(255,255,255,0.6)"}}>Empeza hoy</span>
             <h2 style={{marginTop:14}}>
-              60 minutos. Un mapa de tu operación. Cero compromiso.
+              60 minutos. Un mapa de tu operacion. Cero compromiso.
             </h2>
             <p>
-              Agendá un diagnóstico. Salís con un mapa del proceso más doloroso, una estimación
-              de ahorro y una recomendación clara — usa Bonsai o no.
+              Agendamos un diagnostico y salis con un mapa del proceso mas doloroso,
+              una estimacion de ahorro y una recomendacion clara, uses Bonsai o no.
             </p>
           </div>
-          <div style={{display:"flex", flexDirection:"column", gap:10, alignItems:"flex-start"}}>
-            <a className="btn btn-primary" href="mailto:hola@bonsai.consulting?subject=Quiero%20un%20diagn%C3%B3stico">
-              Agendar diagnóstico 60 min <Icon.Arrow width="16" height="16" />
-            </a>
-            <a className="btn btn-ghost" style={{color:"var(--stone)", borderColor:"rgba(255,255,255,0.18)"}} href="#calculadora">
+          <form style={{display:"grid", gap:10, width:"min(100%, 420px)"}} onSubmit={(e) => e.preventDefault()}>
+            <FinalLeadInput
+              label="Empresa"
+              value={company}
+              onChange={setCompany}
+              placeholder="Nombre de tu empresa"
+            />
+            <FinalLeadInput
+              label="Proceso"
+              value={processName}
+              onChange={setProcessName}
+              placeholder="Ej. reportes, cobranzas, conciliacion"
+            />
+            <FinalLeadInput
+              label="Email"
+              value={email}
+              onChange={setEmail}
+              placeholder="tu@email.com"
+              type="email"
+            />
+            <div style={{display:"flex", gap:10, flexWrap:"wrap", marginTop:4}}>
+              <a className="btn btn-primary" href={mailto}>
+                Enviar diagnostico <Icon.Arrow width="16" height="16" />
+              </a>
+              <a className="btn btn-ghost" style={{color:"var(--stone)", borderColor:"rgba(255,255,255,0.18)"}} href={whatsapp} target="_blank" rel="noopener noreferrer">
+                WhatsApp
+              </a>
+            </div>
+            <a className="btn btn-ghost" style={{color:"var(--stone)", borderColor:"rgba(255,255,255,0.18)", width:"fit-content"}} href="#calculadora">
               Calcular ahorro primero
             </a>
             <div style={{
               fontFamily:"var(--font-mono)", fontSize:11, color:"rgba(255,255,255,0.5)",
-              letterSpacing:"0.06em", marginTop:6
+              letterSpacing:"0.06em", marginTop:2
             }}>
-              hola@bonsai.consulting · Asunción · LATAM
+              hola@bonsai.consulting · Asuncion · LATAM
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>
   );
 }
 
+function FinalLeadInput({ label, value, onChange, placeholder, type = "text" }) {
+  return (
+    <label style={{display:"grid", gap:6}}>
+      <span style={{
+        fontFamily:"var(--font-mono)",
+        fontSize:11,
+        textTransform:"uppercase",
+        letterSpacing:"0.08em",
+        color:"rgba(255,255,255,0.58)"
+      }}>
+        {label}
+      </span>
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        style={{
+          width:"100%",
+          border:"1px solid rgba(255,255,255,0.16)",
+          borderRadius:8,
+          background:"rgba(255,255,255,0.08)",
+          color:"var(--stone)",
+          padding:"12px 13px",
+          font:"inherit",
+          outline:"none"
+        }}
+      />
+    </label>
+  );
+}
 // ============================================================
 // Footer
 // ============================================================
