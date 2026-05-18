@@ -40,6 +40,8 @@ function App() {
         <ProblemsSection />
         <SolutionsTransition />
         <ServicesSection />
+        <ProductizedOffersSection />
+        <DeliverablesSection />
         <IndustriesSection />
         <BonsaiOSSection />
         <UseCasesSection />
@@ -106,15 +108,15 @@ function HeroEnglish() {
             We turn manual operations into <em>intelligent systems</em>.
           </h1>
           <p className="lead">
-            We design software, automations and AI agents for companies that want to
-            operate with more clarity, speed and control.
+            We automate critical workflows for growing companies in 10-15 days,
+            with fixed scope, clear metrics and production-ready systems.
           </p>
           <div className="hero-ctas">
             <a className="btn btn-primary" href="#contacto">
-              Book a diagnostic
+              Book a 60-min diagnostic
               <Icon.Arrow width="16" height="16" />
             </a>
-            <a className="btn btn-ghost" href="#servicios">See solutions</a>
+            <a className="btn btn-ghost" href="#calculadora">Estimate savings</a>
           </div>
           <div className="hero-stats">
             <div>

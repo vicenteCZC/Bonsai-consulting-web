@@ -238,7 +238,7 @@ function Hero() {
               {t("hero.cta.primary")}
               <Icon.Arrow width="16" height="16" />
             </a>
-            <a className="btn btn-ghost" href="#servicios">
+            <a className="btn btn-ghost" href="#calculadora">
               {t("hero.cta.ghost")}
             </a>
           </div>

@@ -204,6 +204,145 @@ function ServicesSection() {
 }
 
 // ============================================================
+// Productized offers — make the engagement easy to buy
+// ============================================================
+function ProductizedOffersSection() {
+  const offers = [
+    {
+      name: "Diagnostico operativo",
+      time: "60 min",
+      price: "Sin costo",
+      best: "Para decidir si hay un sprint real.",
+      deliverables: ["Mapa del proceso", "Estimacion de ahorro", "Siguiente paso recomendado"],
+      cta: "Agendar diagnostico",
+      href: "#contacto",
+    },
+    {
+      name: "Automation Sprint",
+      time: "10-15 dias",
+      price: "USD 6.000-12.000",
+      best: "Para automatizar un flujo critico ya identificado.",
+      deliverables: ["Workflow en produccion", "Dashboard de seguimiento", "30 dias de soporte"],
+      cta: "Ver sprint",
+      href: "divisions/development.html#paquetes",
+      featured: true,
+    },
+    {
+      name: "Operations Stack",
+      time: "4-8 semanas",
+      price: "USD 18.000-35.000",
+      best: "Para reemplazar planillas por una app interna.",
+      deliverables: ["App interna", "Modelo de datos", "Permisos y documentacion"],
+      cta: "Ver stack",
+      href: "divisions/development.html#paquetes",
+    },
+    {
+      name: "Bonsai OS Partnership",
+      time: "Continuo",
+      price: "Desde USD 4.500/mes",
+      best: "Para evolucionar sistemas, agentes y tableros cada mes.",
+      deliverables: ["Roadmap mensual", "SLA de soporte", "Mejoras continuas"],
+      cta: "Ver partnership",
+      href: "#bonsai-os",
+    },
+  ];
+
+  return (
+    <section className="s" id="paquetes" style={{paddingTop:96, background:"var(--stone-2)"}}>
+      <div className="wrap">
+        <div className="s-head">
+          <div>
+            <span className="eyebrow">Paquetes comprables</span>
+            <h2 className="h-display" style={{marginTop:18}}>
+              Elegi por resultado, no por horas.
+            </h2>
+          </div>
+          <p className="lead">
+            La primera conversacion define si conviene automatizar, construir una app interna
+            o entrar en una relacion continua. Cada opcion tiene plazo, precio de referencia
+            y entregables concretos antes de empezar.
+          </p>
+        </div>
+
+        <div className="services-grid">
+          {offers.map((o, i) => (
+            <article className={"service-card" + (o.featured ? " featured" : "")} key={i}>
+              <div className="service-top">
+                <div className="service-num">0{i + 1}</div>
+                <div className="service-tag">{o.time}</div>
+              </div>
+              <h3>{o.name}</h3>
+              <div className="service-tag">{o.price}</div>
+              <p>{o.best}</p>
+              <div className="service-fit">
+                <span>Incluye</span>
+                <ul style={{margin:"8px 0 0", paddingLeft:18, display:"grid", gap:6}}>
+                  {o.deliverables.map((d) => <li key={d}>{d}</li>)}
+                </ul>
+              </div>
+              <a className="btn btn-ghost" href={o.href} style={{marginTop:18}}>
+                {o.cta} <Icon.Arrow width="14" height="14" />
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
+// Deliverables — reduce uncertainty before the sales call
+// ============================================================
+function DeliverablesSection() {
+  const items = [
+    ["Antes de construir", "Mapa del proceso, fuentes de datos, reglas de negocio y criterios de aceptacion."],
+    ["Durante el sprint", "Demo diaria, tablero de avance, decisiones abiertas y backlog visible."],
+    ["Al go-live", "Sistema en produccion, accesos, runbook, metricas base y capacitacion del equipo."],
+    ["Despues", "30 dias de soporte, medicion de ahorro y recomendacion de siguiente sprint."],
+  ];
+
+  return (
+    <section className="s dark" id="entregables" style={{paddingTop:96, paddingBottom:96}}>
+      <div className="wrap">
+        <div className="s-head">
+          <div>
+            <span className="eyebrow">Que recibis</span>
+            <h2 className="h-display" style={{marginTop:18, color:"var(--stone)"}}>
+              No termina en una presentacion. Termina operando.
+            </h2>
+          </div>
+          <p className="lead" style={{color:"rgba(255,255,255,0.72)"}}>
+            El riesgo en proyectos de automatizacion no es la tecnologia: es no saber que
+            se entrega, quien lo opera y como se mide. Por eso cada sprint deja artefactos
+            claros desde el primer dia.
+          </p>
+        </div>
+
+        <div className="solutions-table">
+          <div className="solutions-head">
+            <div>Momento</div>
+            <div></div>
+            <div>Entregable</div>
+          </div>
+          {items.map(([phase, value], i) => (
+            <div className="solutions-row" key={phase}>
+              <div className="hoy">{phase}</div>
+              <div className="arrow" aria-hidden>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                  <path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>
+                </svg>
+              </div>
+              <div className="con">{value}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
 // Industries — 6 sectors
 // ============================================================
 function IndustriesSection() {
@@ -471,8 +610,8 @@ function CTABanner() {
             <a className="btn btn-primary" href="mailto:hola@bonsai.consulting?subject=Quiero%20un%20diagn%C3%B3stico">
               Agendar diagnóstico 60 min <Icon.Arrow width="16" height="16" />
             </a>
-            <a className="btn btn-ghost" style={{color:"var(--stone)", borderColor:"rgba(255,255,255,0.18)"}} href="#servicios">
-              Ver soluciones primero
+            <a className="btn btn-ghost" style={{color:"var(--stone)", borderColor:"rgba(255,255,255,0.18)"}} href="#calculadora">
+              Calcular ahorro primero
             </a>
             <div style={{
               fontFamily:"var(--font-mono)", fontSize:11, color:"rgba(255,255,255,0.5)",
@@ -679,6 +818,7 @@ function BrandReelSection() {
 Object.assign(window, { BrandReelSection });
 
 Object.assign(window, {
-  ProblemsSection, SolutionsTransition, ServicesSection, IndustriesSection,
+  ProblemsSection, SolutionsTransition, ServicesSection, ProductizedOffersSection,
+  DeliverablesSection, IndustriesSection,
   BonsaiOSSection, UseCasesSection, ProcessSection, CTABanner, Footer,
 });
