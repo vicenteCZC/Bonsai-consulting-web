@@ -1,7 +1,16 @@
 /* global React, ReactDOM, useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakColor, TweakToggle */
 
+const useBonsaiTweaks = typeof useTweaks === "function"
+  ? useTweaks
+  : (defaults) => ({ ...defaults, setTweak: () => {} });
+const BonsaiTweaksPanel = typeof TweaksPanel === "function" ? TweaksPanel : () => null;
+const BonsaiTweakSection = typeof TweakSection === "function" ? TweakSection : ({ children }) => <>{children}</>;
+const BonsaiTweakRadio = typeof TweakRadio === "function" ? TweakRadio : () => null;
+const BonsaiTweakColor = typeof TweakColor === "function" ? TweakColor : () => null;
+const BonsaiTweakToggle = typeof TweakToggle === "function" ? TweakToggle : () => null;
+
 function App() {
-  const t = useTweaks(/*EDITMODE-BEGIN*/{
+  const t = useBonsaiTweaks(/*EDITMODE-BEGIN*/{
     "accent": "#16C08C",
     "headlineStyle": "Spanish",
     "showLiveOS": true,
@@ -34,17 +43,17 @@ function App() {
       <CTABanner />
       <Footer />
 
-      <TweaksPanel title="Tweaks">
-        <TweakSection title="Color">
-          <TweakColor
+      <BonsaiTweaksPanel title="Tweaks">
+        <BonsaiTweakSection title="Color">
+          <BonsaiTweakColor
             label="Color de acento"
             value={t.accent}
             onChange={(v) => t.setTweak("accent", v)}
             options={["#16C08C", "#C9A14A", "#E07A5F", "#4F8FB5"]}
           />
-        </TweakSection>
-        <TweakSection title="Hero">
-          <TweakRadio
+        </BonsaiTweakSection>
+        <BonsaiTweakSection title="Hero">
+          <BonsaiTweakRadio
             label="Headline"
             value={t.headlineStyle}
             onChange={(v) => t.setTweak("headlineStyle", v)}
@@ -53,13 +62,13 @@ function App() {
               { label: "English", value: "English" },
             ]}
           />
-          <TweakToggle
+          <BonsaiTweakToggle
             label="Hero denso"
             value={t.denseHero}
             onChange={(v) => t.setTweak("denseHero", v)}
           />
-        </TweakSection>
-      </TweaksPanel>
+        </BonsaiTweakSection>
+      </BonsaiTweaksPanel>
     </>
   );
 }
