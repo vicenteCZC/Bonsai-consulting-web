@@ -77,6 +77,9 @@ function PricingCalculator() {
   const [hours, setHours]   = useS(20);  // horas manuales / semana
   const [people, setPeople] = useS(2);
   const [rate, setRate]     = useS(12);  // USD por hora
+  const [company, setCompany] = useS("");
+  const [processName, setProcessName] = useS("");
+  const [contact, setContact] = useS("");
 
   const monthly = useM(() => Math.round(hours * people * rate * 4.33), [hours, people, rate]);
   const annual  = monthly * 12;
@@ -102,6 +105,28 @@ function PricingCalculator() {
       div: "development",
     };
   }, [monthly]);
+
+  const leadSummary = useM(() => {
+    return [
+      "Hola Bonsai, quiero revisar este proceso.",
+      "",
+      `Empresa: ${company || "A completar"}`,
+      `Proceso manual: ${processName || "A completar"}`,
+      `Contacto: ${contact || "A completar"}`,
+      "",
+      `Horas manuales por semana: ${hours}`,
+      `Personas involucradas: ${people}`,
+      `Costo hora promedio: USD ${rate}`,
+      `Ahorro mensual estimado: USD ${monthly.toLocaleString()}`,
+      `Ahorro anual estimado: USD ${annual.toLocaleString()}`,
+      `Paquete sugerido: ${recommendation.name}`,
+      "",
+      "Me gustaria agendar un diagnostico de 60 minutos."
+    ].join("\n");
+  }, [company, processName, contact, hours, people, rate, monthly, annual, recommendation.name]);
+
+  const leadMailto = `mailto:hola@bonsai.consulting?subject=${encodeURIComponent("Diagnostico Bonsai - calculadora de ahorro")}&body=${encodeURIComponent(leadSummary)}`;
+  const leadWhatsApp = `https://wa.me/595981234567?text=${encodeURIComponent(leadSummary)}`;
 
   return (
     <section className="s" id="calculadora" style={{paddingTop:96}}>
@@ -160,10 +185,76 @@ function PricingCalculator() {
                 Ver paquete completo <Icon.Arrow width="14" height="14" />
               </a>
             </div>
+
+            <div className="calc-reco" style={{marginTop:18}}>
+              <span className="eyebrow" style={{color:"var(--green-2)"}}>Diagnostico con tus datos</span>
+              <div style={{display:"grid", gap:10, marginTop:14}}>
+                <LeadInput
+                  label="Empresa"
+                  value={company}
+                  onChange={setCompany}
+                  placeholder="Nombre de tu empresa"
+                />
+                <LeadInput
+                  label="Proceso a automatizar"
+                  value={processName}
+                  onChange={setProcessName}
+                  placeholder="Ej. conciliacion de delivery"
+                />
+                <LeadInput
+                  label="Email o WhatsApp"
+                  value={contact}
+                  onChange={setContact}
+                  placeholder="Donde te respondemos"
+                />
+              </div>
+              <div style={{display:"flex", gap:10, flexWrap:"wrap", marginTop:14}}>
+                <a className="btn btn-primary" href={leadMailto}>
+                  Enviar por email <Icon.Arrow width="14" height="14" />
+                </a>
+                <a className="btn btn-ghost" href={leadWhatsApp} target="_blank" rel="noopener noreferrer">
+                  WhatsApp
+                </a>
+              </div>
+              <p style={{fontSize:12, color:"var(--muted)", marginTop:10}}>
+                Se abre tu cliente de email o WhatsApp con el resumen ya armado. No guardamos datos en el navegador.
+              </p>
+            </div>
           </aside>
         </div>
       </div>
     </section>
+  );
+}
+
+function LeadInput({ label, value, onChange, placeholder }) {
+  return (
+    <label style={{display:"grid", gap:6}}>
+      <span style={{
+        fontFamily:"var(--font-mono)",
+        fontSize:11,
+        textTransform:"uppercase",
+        letterSpacing:"0.08em",
+        color:"var(--muted)"
+      }}>
+        {label}
+      </span>
+      <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        style={{
+          width:"100%",
+          border:"1px solid var(--line)",
+          borderRadius:8,
+          background:"var(--paper)",
+          color:"var(--ink)",
+          padding:"12px 13px",
+          font:"inherit",
+          outline:"none"
+        }}
+      />
+    </label>
   );
 }
 
